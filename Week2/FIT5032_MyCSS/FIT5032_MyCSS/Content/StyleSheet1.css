@@ -1,12 +1,18 @@
 ﻿<style>
     .preview {
-        color: purple;
+        background-color: yellow;
     }
 
     .preview2 {
-        color: blue;
+        background-color: green;
     }
 
+    .previewsecondLevel{
+        color: blue
+    }
+    .preview2secondLevel {
+        color: black
+    }
     p {
         color: white;
     }
