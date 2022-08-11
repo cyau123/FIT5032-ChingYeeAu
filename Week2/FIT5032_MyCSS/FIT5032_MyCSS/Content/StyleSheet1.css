@@ -1,19 +1,20 @@
-﻿<style>
-    .preview {
-        background-color: yellow;
-    }
+﻿.preview {
+    background-color: yellow;
+}
 
-    .preview2 {
-        background-color: green;
-    }
+.preview2 {
+    background-color: green;
+}
 
-    .previewsecondLevel{
-        color: blue
-    }
-    .preview2secondLevel {
-        color: black
-    }
-    p {
-        color: white;
-    }
-</style>
+.previewsecondLevel {
+    color: blue;
+    font-family: "Sofia", sans-serif;
+}
+
+.preview2secondLevel {
+    color: black
+}
+
+p {
+    color: white;
+}
