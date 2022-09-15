@@ -24,7 +24,7 @@ namespace FIT5032_Assignment_v1.Controllers
             if (User.IsInRole("Admin"))
             {
                 bookings = db.Bookings.Include(b => b.Dentist).Include(b => b.Location).Include(b => b.Patient);
-             
+
             }
             if (User.IsInRole("Patient"))
             {
@@ -53,19 +53,19 @@ namespace FIT5032_Assignment_v1.Controllers
         // GET: Bookings/Create
         public ActionResult Create()
         {
-            ViewBag.DentistId = new SelectList(db.Dentists, "Id", "FirstName");
+            ViewBag.DentistId = new SelectList(db.Dentists, "Id", "DisplayName");
             ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name");
-            ViewBag.PatientId = new SelectList(db.Patients, "Id", "UserId");
+            ViewBag.PatientId = new SelectList(db.Patients, "Id", "DisplayName");
             return View();
         }
 
         // POST: Bookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles ="Admin, Patient")]
+        [Authorize(Roles = "Admin, Patient")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StartDateTime,EndDateTime,LocationId,DentistId,PatientId")] Booking booking)
+        public ActionResult Create([Bind(Include = "Id,Date,StartDateTime,EndDateTime,LocationId,DentistId,PatientId")] Booking booking)
         {
             if (ModelState.IsValid)
             {
@@ -80,9 +80,9 @@ namespace FIT5032_Assignment_v1.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DentistId = new SelectList(db.Dentists, "Id", "FirstName", booking.DentistId);
+            ViewBag.DentistId = new SelectList(db.Dentists, "Id", "DisplayName", booking.DentistId);
             ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name", booking.LocationId);
-            ViewBag.PatientId = new SelectList(db.Patients, "Id", "UserId", booking.PatientId);
+            ViewBag.PatientId = new SelectList(db.Patients, "Id", "DisplayName", booking.PatientId);
             return View(booking);
         }
 
@@ -98,9 +98,9 @@ namespace FIT5032_Assignment_v1.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DentistId = new SelectList(db.Dentists, "Id", "FirstName", booking.DentistId);
+            ViewBag.DentistId = new SelectList(db.Dentists, "Id", "DisplayName", booking.DentistId);
             ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name", booking.LocationId);
-            ViewBag.PatientId = new SelectList(db.Patients, "Id", "UserId", booking.PatientId);
+            ViewBag.PatientId = new SelectList(db.Patients, "Id", "DisplayName", booking.PatientId);
             return View(booking);
         }
 
@@ -109,7 +109,7 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StartDateTime,EndDateTime,LocationId,DentistId,PatientId")] Booking booking)
+        public ActionResult Edit([Bind(Include = "Id,Date,StartDateTime,EndDateTime,LocationId,DentistId,PatientId")] Booking booking)
         {
             if (ModelState.IsValid)
             {
@@ -123,9 +123,9 @@ namespace FIT5032_Assignment_v1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DentistId = new SelectList(db.Dentists, "Id", "FirstName", booking.DentistId);
+            ViewBag.DentistId = new SelectList(db.Dentists, "Id", "DisplayName", booking.DentistId);
             ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name", booking.LocationId);
-            ViewBag.PatientId = new SelectList(db.Patients, "Id", "UserId", booking.PatientId);
+            ViewBag.PatientId = new SelectList(db.Patients, "Id", "DisplayName", booking.PatientId);
             return View(booking);
         }
 
@@ -165,3 +165,4 @@ namespace FIT5032_Assignment_v1.Controllers
         }
     }
 }
+

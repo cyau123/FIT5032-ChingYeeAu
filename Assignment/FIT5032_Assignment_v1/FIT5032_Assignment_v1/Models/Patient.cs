@@ -23,6 +23,7 @@ namespace FIT5032_Assignment_v1.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        public string DisplayName { get; set; }
         [Required]
         public string Gender { get; set; }
         [Required]

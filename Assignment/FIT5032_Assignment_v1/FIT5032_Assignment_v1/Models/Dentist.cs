@@ -17,10 +17,13 @@ namespace FIT5032_Assignment_v1.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        public string DisplayName { get; set; }
         public string Gender { get; set; }
         [Required]
         [Display(Name = "Phone Number")]

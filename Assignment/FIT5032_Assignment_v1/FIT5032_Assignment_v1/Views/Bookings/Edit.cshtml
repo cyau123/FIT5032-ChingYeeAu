@@ -1,64 +1,71 @@
 ﻿@model FIT5032_Assignment_v1.Models.Booking
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Booking";
 }
 
-<h2>Edit</h2>
+<h2>Edit Booking</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Booking</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.StartDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.StartDateTime, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.StartDateTime, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.EndDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EndDateTime, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EndDateTime, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.LocationId, "LocationId", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("LocationId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DentistId, "DentistId", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("DentistId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.DentistId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    @if (User.IsInRole("Admin"))
-    {
         <div class="form-group">
-            @Html.LabelFor(model => model.PatientId, "PatientId", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.StartDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StartDateTime, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndDateTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocationId, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LocationId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DentistId, "Practitioner", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DentistId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DentistId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.PatientId, "Patient", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

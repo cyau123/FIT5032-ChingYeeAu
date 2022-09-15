@@ -10,8 +10,18 @@ namespace FIT5032_Assignment_v1.Models
     {
         public int Id { get; set; }
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date { get; set; }
+        [Required]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Start Time")]
         public DateTime StartDateTime { get; set; }
         [Required]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name ="End Time")]
         public DateTime EndDateTime { get; set; }
         [Required]
         public int LocationId { get; set; }

@@ -1,26 +1,33 @@
 ﻿@model FIT5032_Assignment_v1.Models.Booking
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Booking";
 }
 
-<h2>Delete</h2>
+<h2>Delete Booking</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to delete this booking?</h3>
 <div>
-    <h4>Booking</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Dentist.FirstName)
+            Date
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Dentist.FirstName)
+            @Html.ValueFor(model => model.Date, "{0:dd/MM/yyyy}")
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Location.Name)
+            Time
+        </dt>
+
+        <dd>
+            @Html.ValueFor(model => model.StartDateTime, "{0:hh:mm tt}") - @Html.ValueFor(model => model.EndDateTime, "{0:hh:mm tt}")
+        </dd>
+
+        <dt>
+            Location
         </dt>
 
         <dd>
@@ -28,28 +35,22 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Patient.UserId)
+            Practitioner
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Patient.UserId)
+            Dr @Html.DisplayFor(model => model.Dentist.FirstName) @Html.DisplayFor(model => model.Dentist.LastName)
         </dd>
+        @if (User.IsInRole("Admin"))
+        {
+            <dt>
+                Patient
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDateTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDateTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDateTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDateTime)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Patient.FirstName) @Html.DisplayFor(model => model.Patient.LastName)
+            </dd>
+        }
 
     </dl>
 
