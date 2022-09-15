@@ -12,7 +12,7 @@ namespace FIT5032_Assignment_v1
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            //createRolesAndUsers();
+            createRolesAndUsers();
         }
 
         private void createRolesAndUsers()
@@ -20,7 +20,7 @@ namespace FIT5032_Assignment_v1
             ApplicationDbContext context = new ApplicationDbContext();
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
             if (!roleManager.RoleExists("Receptionist"))
             {
@@ -51,6 +51,29 @@ namespace FIT5032_Assignment_v1
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Patient";
                 roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists("Admin"))
+            {
+                //create the role Admin
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+
+                //create an Admin
+                var user = new ApplicationUser();
+                user.UserName = "admin@hq.com";
+                user.Email = "admin@hq.com";
+                user.FirstName = "Admin";
+                user.LastName = "One";
+
+                string userPwd = "Potato1!";
+                var newUser = userManager.Create(user, userPwd);
+
+                if (newUser.Succeeded)
+                {
+                    var result = userManager.AddToRole(user.Id, "Admin");
+                }
             }
         }
     }

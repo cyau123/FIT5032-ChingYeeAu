@@ -4,33 +4,49 @@
 <head>
     <link href="~/Content/indexStyleSheet.css" rel="stylesheet" />
 </head>
-<div class="home-make-a-booking">
-    <div class="make-booking-text">
-        <div class="text-mid">Welcome to</div>
-        <div class="text-large">HQ Dental Group</div>
-        <div class="text-small">Melbourne's Best Dentists'</div><br />
-        <div class="homepage-button"><a href="https://asp.net" class="btn btn-primary btn-lg">Make a booking &raquo;</a></div>
-     </div>
-</div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<body>
+    <div class="home-make-a-booking col-12">
+        <div class="make-booking-text">
+            <div class="text-mid">Welcome to</div>
+            <div class="text-large">HQ Dental Group</div>
+            <div class="text-small">Melbourne's Best Dentists</div><br />
+            <div class="homepage-button"><a href="https://asp.net" class="btn btn-primary btn-lg">Make a booking &raquo;</a></div>
         </div>
     </div>
+
+    <div class="middle-row col-12">
+        <div class="view-bookings col-md-6">
+            <div class="view-bookings-text">
+                <div class="text-mid">View your bookings 
+                    <a href="https://asp.net" class="rounded-button">
+                        <ion-icon name="chevron-forward"></ion-icon>
+                    </a>
+                </div>
+                <div class="text-xs">Manage bookings</div>
+            </div>
+        </div>
+        <div class="our-team col-md-6">
+            <div class="our-team-text">
+                <div class="text-mid">Our dentist team
+                    <a href="https://asp.net" class="rounded-button">
+                        <ion-icon name="chevron-forward"></ion-icon>
+                    </a>
+                </div>
+                <div class="text-xs">View our profiles</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="locations col-12">
+        <div class="locations-text">
+            <div class="text-mid">Locations
+                <a href="https://asp.net" class="rounded-button">
+                    <ion-icon name="chevron-forward"></ion-icon>
+                </a>
+            </div>
+            <div class="text-xs">Find your nearest clinic</div>
+        </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>

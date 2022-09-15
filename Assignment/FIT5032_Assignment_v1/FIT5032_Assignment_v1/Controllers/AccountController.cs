@@ -17,6 +17,7 @@ namespace FIT5032_Assignment_v1.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private FIT5032_Models db = new FIT5032_Models();
 
         public AccountController()
         {
@@ -162,6 +163,19 @@ namespace FIT5032_Assignment_v1.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Patient");
+                    //add user to Patients table
+                    var patient = new Patient
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Gender = user.Gender,
+                        PhoneNumber = user.PhoneNumber,
+                        Email = user.Email,
+                        UserId = user.Id
+                    };
+                    db.Patients.Add(patient);
+                    db.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -374,13 +388,33 @@ namespace FIT5032_Assignment_v1.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { 
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Gender = model.Gender,
+                    PhoneNumber = model.PhoneNumber,
+                    UserName = model.Email,
+                    Email = model.Email
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        UserManager.AddToRole(user.Id, "Patient");
+                        //add user to Patients table
+                        var patient = new Patient
+                        {
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            Gender = user.Gender,
+                            PhoneNumber = user.PhoneNumber,
+                            Email = user.Email,
+                            UserId = user.Id
+                        };
+                        db.Patients.Add(patient);
+                        db.SaveChanges();
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }

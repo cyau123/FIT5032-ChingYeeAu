@@ -1,0 +1,55 @@
+﻿@model IEnumerable<FIT5032_Assignment_v1.Models.Booking>
+
+@{
+    ViewBag.Title = "View Booking";
+}
+
+<h2>View Booking</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Location</th>
+        <th>Practitioner</th>
+        @if (User.IsInRole("Admin"))
+        {
+            <th>
+                Patient
+            </th>
+        }
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.StartDateTime.ToString("dd-MM-yyyy")
+        </td>
+        <td>
+            @item.StartDateTime.ToString("hh:mm") - @item.EndDateTime.ToString("hh:mm")
+        </td>
+        <td>
+            @item.Location.Name
+        </td>
+        <td>
+            Dr @item.Dentist.FirstName.ToString() @item.Dentist.LastName.ToString()
+        </td>
+        @if (User.IsInRole("Admin"))
+        {
+            <td>
+                @item.Patient.FirstName @item.Patient.LastName
+            </td>
+        }
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
