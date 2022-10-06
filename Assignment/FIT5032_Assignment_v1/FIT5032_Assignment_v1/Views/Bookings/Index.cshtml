@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Make a new booking", "Create")
 </p>
-<table class="table">
+<table id="bookingTable" class="table">
     <tr>
         <th>Date</th>
         <th>Time</th>
@@ -54,4 +54,10 @@
     }
 
 </table>
+<script src="~/Scripts/dataTable.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#bookingTable').DataTable();
+    });
+</script>
 
