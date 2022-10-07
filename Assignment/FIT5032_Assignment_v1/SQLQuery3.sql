@@ -1,0 +1,1 @@
+﻿alter table [dbo].[Dentists] drop column DisplayName;

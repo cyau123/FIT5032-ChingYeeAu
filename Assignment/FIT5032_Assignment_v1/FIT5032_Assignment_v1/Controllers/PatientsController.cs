@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using FIT5032_Assignment_v1.Models;
 
 namespace FIT5032_Assignment_v1.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PatientsController : Controller
     {
         private FIT5032_Models db = new FIT5032_Models();
@@ -46,11 +49,14 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,FirstName,LastName,Gender,PhoneNumber,Email")] Patient patient)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Gender,PhoneNumber,Email")] Patient patient)
         {
             if (ModelState.IsValid)
             {
-                db.Patients.Add(patient);
+                db.Database.ExecuteSqlCommand("insert into Patients(FirstName, LastName, Gender, PhoneNumber, Email) values (@FirstName, @LastName, @Gender, @PhoneNumber, @Email)", 
+                    new SqlParameter("@FirstName", patient.FirstName), new SqlParameter("@LastName", patient.LastName), new SqlParameter("@Gender", patient.Gender), 
+                    new SqlParameter("@PhoneNumber", patient.PhoneNumber), new SqlParameter("@Email", patient.Email));
+                //db.Patients.Add(patient);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -78,11 +84,15 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserId,FirstName,LastName,Gender,PhoneNumber,Email")] Patient patient)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Gender,PhoneNumber,Email")] Patient patient)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(patient).State = EntityState.Modified;
+                db.Database.ExecuteSqlCommand("update Patients set FirstName=@FirstName, LastName=@LastName, Gender=@Gender, PhoneNumber=@PhoneNumber, Email=@Email where Id=@Id",
+                    new SqlParameter("@Id", patient.Id),
+                    new SqlParameter("@FirstName", patient.FirstName), new SqlParameter("@LastName", patient.LastName), new SqlParameter("@Gender", patient.Gender),
+                    new SqlParameter("@PhoneNumber", patient.PhoneNumber), new SqlParameter("@Email", patient.Email));
+                //db.Entry(patient).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

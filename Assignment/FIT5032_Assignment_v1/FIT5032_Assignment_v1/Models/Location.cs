@@ -24,9 +24,13 @@ namespace FIT5032_Assignment_v1.Models
         public string Address { get; set; }
 
         [Required]
+        [Display(Name = "Phone Number")]
+        [RegularExpression(@"^(0)(\d{9})$", ErrorMessage = "The {0} must be a 10 digit valid phone number.")]
         public string PhoneNumber { get; set; }
 
         [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
         public string EmailAddress { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

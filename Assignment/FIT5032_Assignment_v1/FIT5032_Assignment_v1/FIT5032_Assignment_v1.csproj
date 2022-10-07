@@ -277,21 +277,21 @@
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
-    <Content Include="Views\Patients\Create.cshtml" />
-    <Content Include="Views\Patients\Delete.cshtml" />
-    <Content Include="Views\Patients\Details.cshtml" />
-    <Content Include="Views\Patients\Edit.cshtml" />
-    <Content Include="Views\Patients\Index.cshtml" />
-    <Content Include="Views\Dentists\Create.cshtml" />
-    <Content Include="Views\Dentists\Delete.cshtml" />
-    <Content Include="Views\Dentists\Details.cshtml" />
-    <Content Include="Views\Dentists\Edit.cshtml" />
-    <Content Include="Views\Dentists\Index.cshtml" />
     <Content Include="Views\Bookings\Create.cshtml" />
     <Content Include="Views\Bookings\Delete.cshtml" />
     <Content Include="Views\Bookings\Details.cshtml" />
     <Content Include="Views\Bookings\Edit.cshtml" />
     <Content Include="Views\Bookings\Index.cshtml" />
+    <Content Include="Views\Dentists\Create.cshtml" />
+    <Content Include="Views\Dentists\Delete.cshtml" />
+    <Content Include="Views\Dentists\Details.cshtml" />
+    <Content Include="Views\Dentists\Edit.cshtml" />
+    <Content Include="Views\Dentists\Index.cshtml" />
+    <Content Include="Views\Patients\Create.cshtml" />
+    <Content Include="Views\Patients\Delete.cshtml" />
+    <Content Include="Views\Patients\Details.cshtml" />
+    <Content Include="Views\Patients\Edit.cshtml" />
+    <Content Include="Views\Patients\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

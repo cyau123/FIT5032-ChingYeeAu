@@ -10,48 +10,53 @@
     @Html.ActionLink("Make a new booking", "Create")
 </p>
 <table id="bookingTable" class="table">
-    <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Location</th>
-        <th>Practitioner</th>
-        @if (User.IsInRole("Admin"))
-        {
-            <th>
-                Patient
-            </th>
-        }
-        <th>Action</th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <thead>
         <tr>
-            <td>
-                @item.Date.ToString("dd-MM-yyyy")
-            </td>
-            <td>
-                @item.StartDateTime.ToString("hh:mm tt") - @item.EndDateTime.ToString("hh:mm tt")
-            </td>
-            <td>
-                @item.Location.Name
-            </td>
-            <td>
-                Dr @item.Dentist.FirstName.ToString() @item.Dentist.LastName.ToString()
-            </td>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Practitioner</th>
             @if (User.IsInRole("Admin"))
             {
-                <td>
-                    @item.Patient.FirstName @item.Patient.LastName
-                </td>
+                <th>
+                    Patient
+                </th>
             }
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            <th>Action</th>
         </tr>
-    }
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Date.ToString("dd-MM-yyyy")
+                </td>
+                <td>
+                    @item.StartDateTime.ToString("hh:mm tt") - @item.EndDateTime.ToString("hh:mm tt")
+                </td>
+                <td>
+                    @item.Location.Name
+                </td>
+                <td>
+                    Dr @item.Dentist.FirstName.ToString() @item.Dentist.LastName.ToString()
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @item.Patient.FirstName @item.Patient.LastName
+                    </td>
+                }
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
 <script src="~/Scripts/dataTable.js"></script>

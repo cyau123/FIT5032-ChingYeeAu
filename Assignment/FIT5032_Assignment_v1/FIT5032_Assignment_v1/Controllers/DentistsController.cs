@@ -10,6 +10,7 @@ using FIT5032_Assignment_v1.Models;
 
 namespace FIT5032_Assignment_v1.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DentistsController : Controller
     {
         private FIT5032_Models db = new FIT5032_Models();
@@ -48,10 +49,11 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Gender,PhoneNumber,Email,LocationId,AggregatedRating")] Dentist dentist)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Gender,PhoneNumber,Email,LocationId")] Dentist dentist)
         {
             if (ModelState.IsValid)
             {
+                dentist.DisplayName = "Dr " + dentist.FirstName + " " + dentist.LastName;
                 db.Dentists.Add(dentist);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,7 +84,7 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Gender,PhoneNumber,Email,LocationId,AggregatedRating")] Dentist dentist)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,DisplayName,Gender,PhoneNumber,Email,LocationId")] Dentist dentist)
         {
             if (ModelState.IsValid)
             {

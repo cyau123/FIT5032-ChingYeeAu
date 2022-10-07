@@ -23,7 +23,9 @@ namespace FIT5032_Assignment_v1.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Display(Name = "Display Name")]
         public string DisplayName { get; set; }
+        [Required]
         public string Gender { get; set; }
         [Required]
         [Display(Name = "Phone Number")]
@@ -34,7 +36,7 @@ namespace FIT5032_Assignment_v1.Models
         public string Email { get; set; }
 
         public int LocationId { get; set; }
-
+        [Display(Name = "Aggregate Rating")]
         public decimal? AggregatedRating { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
