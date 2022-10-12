@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SendGrid.Helpers.Mail;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace FIT5032_Week08A.Models
 
         [Required(ErrorMessage = "Please enter the contents")]
         public string Contents { get; set; }
+        [Required]
+        public HttpPostedFileBase Path { get; set; }
 
     }
 }

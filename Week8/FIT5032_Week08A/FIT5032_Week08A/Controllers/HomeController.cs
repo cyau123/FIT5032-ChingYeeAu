@@ -2,6 +2,7 @@
 using FIT5032_Week08A.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,7 +39,7 @@ namespace FIT5032_Week08A.Controllers
         }
 
         [HttpPost]
-        public ActionResult Send_Email(SendEmailViewModel model)
+        public ActionResult Send_Email(SendEmailViewModel model, HttpPostedFileBase path)
         {
             if (ModelState.IsValid)
             {
@@ -47,9 +48,10 @@ namespace FIT5032_Week08A.Controllers
                     String toEmail = model.ToEmail;
                     String subject = model.Subject;
                     String contents = model.Contents;
+                    HttpPostedFileBase newFilePath = model.Path;
 
                     EmailSender es = new EmailSender();
-                    es.Send(toEmail, subject, contents);
+                    es.Send(toEmail, subject, contents, path);
 
                     ViewBag.Result = "Email has been send.";
 
