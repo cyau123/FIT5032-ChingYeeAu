@@ -27,5 +27,10 @@ namespace FIT5032_Assignment_v1.Controllers
 
             return View();
         }
+
+        public ActionResult LiveChat()
+        {
+            return View();
+        }
     }
 }

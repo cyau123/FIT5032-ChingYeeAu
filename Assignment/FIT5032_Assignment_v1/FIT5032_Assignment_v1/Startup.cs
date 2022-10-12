@@ -13,6 +13,7 @@ namespace FIT5032_Assignment_v1
         {
             ConfigureAuth(app);
             createRolesAndUsers();
+            app.MapSignalR();
         }
 
         private void createRolesAndUsers()
