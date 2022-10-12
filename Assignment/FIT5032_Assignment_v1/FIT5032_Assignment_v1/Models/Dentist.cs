@@ -43,5 +43,7 @@ namespace FIT5032_Assignment_v1.Models
         public virtual ICollection<Booking> Bookings { get; set; }
         
         public virtual Location Location { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

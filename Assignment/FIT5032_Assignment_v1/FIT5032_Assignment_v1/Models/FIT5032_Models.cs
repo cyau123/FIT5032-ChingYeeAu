@@ -16,6 +16,7 @@ namespace FIT5032_Assignment_v1.Models
         public virtual DbSet<Dentist> Dentists { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -40,6 +41,16 @@ namespace FIT5032_Assignment_v1.Models
 
             modelBuilder.Entity<Patient>()
                 .HasMany(e => e.Bookings)
+                .WithRequired(e => e.Patient)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Dentist>()
+                .HasMany(e => e.Ratings)
+                .WithRequired(e => e.Dentist)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Patient>()
+                .HasMany(e => e.Ratings)
                 .WithRequired(e => e.Patient)
                 .WillCascadeOnDelete(false);
         }

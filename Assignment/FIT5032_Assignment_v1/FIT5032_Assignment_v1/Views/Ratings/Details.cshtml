@@ -1,0 +1,42 @@
+﻿@model FIT5032_Assignment_v1.Models.Rating
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rating</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Practitioner
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dentist.DisplayName)
+        </dd>
+
+        <dt>
+            Patient
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.DisplayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

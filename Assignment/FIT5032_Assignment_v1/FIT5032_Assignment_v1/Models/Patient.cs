@@ -36,5 +36,7 @@ namespace FIT5032_Assignment_v1.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }
