@@ -55,6 +55,7 @@ namespace FIT5032_Assignment_v1.Controllers
             ViewBag.DentistId = new SelectList(db.Dentists, "Id", "DisplayName");
             ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name");
             ViewBag.PatientId = new SelectList(db.Patients, "Id", "DisplayName");
+            
             return View();
         }
 
@@ -67,15 +68,35 @@ namespace FIT5032_Assignment_v1.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (User.IsInRole("Patient"))
+                var timeIsVaild = true;
+                var bookingList = db.Bookings.SqlQuery("Select * from Bookings").ToList<Booking>();
+                //checking the starttime or endtime is not in between appointments of the same dentist
+                foreach (Booking oldBooking in bookingList)
                 {
-                    var userId = User.Identity.GetUserId();
-                    var patient = db.Patients.Where(p => p.UserId == userId).ToList()[0];
-                    booking.PatientId = patient.Id;
+                    if (oldBooking.DentistId == booking.DentistId && ((DateTime.Compare(oldBooking.StartDateTime, booking.StartDateTime) < 0 && DateTime.Compare(oldBooking.EndDateTime, booking.StartDateTime) > 0) || 
+                        (DateTime.Compare(oldBooking.StartDateTime, booking.EndDateTime) < 0 && DateTime.Compare(oldBooking.EndDateTime, booking.EndDateTime) > 0)))
+                    {
+                        timeIsVaild = false; break;
+                    }
                 }
-                db.Bookings.Add(booking);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //checking if date is after today and endtime should be after starttime
+                if (DateTime.Compare(DateTime.Now, booking.Date) >= 0 || DateTime.Compare(booking.StartDateTime, booking.EndDateTime) > 0)
+                {
+                    timeIsVaild = false;
+                }
+                //if starttime and endtime is valid, save the booking
+                if (timeIsVaild)
+                {
+                    if (User.IsInRole("Patient"))
+                    {
+                        var userId = User.Identity.GetUserId();
+                        var patient = db.Patients.Where(p => p.UserId == userId).ToList()[0];
+                        booking.PatientId = patient.Id;
+                    }
+                    db.Bookings.Add(booking);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.DentistId = new SelectList(db.Dentists, "Id", "DisplayName", booking.DentistId);
