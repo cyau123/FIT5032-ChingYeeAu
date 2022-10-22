@@ -16,7 +16,7 @@
             <th>Time</th>
             <th>Location</th>
             <th>Practitioner</th>
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin") || User.IsInRole("Receptionist"))
             {
                 <th>
                     Patient
@@ -43,7 +43,7 @@
                 <td>
                     Dr @item.Dentist.FirstName.ToString() @item.Dentist.LastName.ToString()
                 </td>
-                @if (User.IsInRole("Admin"))
+                @if (User.IsInRole("Admin") || User.IsInRole("Receptionist"))
                 {
                     <td>
                         @item.Patient.FirstName @item.Patient.LastName

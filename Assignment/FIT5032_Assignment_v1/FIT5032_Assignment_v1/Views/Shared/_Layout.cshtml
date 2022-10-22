@@ -26,12 +26,12 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Bookings", "Index", "Bookings")</li>
                     <li>@Html.ActionLink("Our Team", "About", "Home")</li>
+                    <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
                     <li>@Html.ActionLink("Live Chat", "LiveChat", "Home")</li>
-                    @if (User.IsInRole("Admin"))
+                    @if (User.IsInRole("Admin") || User.IsInRole("Receptionist"))
                     {
                         <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
                         <li>@Html.ActionLink("Dentists", "Index", "Dentists")</li>
-                        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
                         <li>@Html.ActionLink("Send Email", "Send_Email", "SendMailer")</li>
                     }
                 </ul>

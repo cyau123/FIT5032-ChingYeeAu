@@ -17,11 +17,10 @@ namespace FIT5032_Assignment_v1.Controllers
         private FIT5032_Models db = new FIT5032_Models();
 
         // GET: Bookings
-        [Authorize(Roles = "Admin, Patient")]
         public ActionResult Index()
         {
             var bookings = db.Bookings.Include(b => b.Dentist).Include(b => b.Location).Include(b => b.Patient);
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Admin") || User.IsInRole("Receptionist"))
             {
                 bookings = db.Bookings.Include(b => b.Dentist).Include(b => b.Location).Include(b => b.Patient);
 
@@ -62,7 +61,6 @@ namespace FIT5032_Assignment_v1.Controllers
         // POST: Bookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin, Patient")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Date,StartDateTime,EndDateTime,LocationId,DentistId,PatientId")] Booking booking)

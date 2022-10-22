@@ -10,7 +10,6 @@ using FIT5032_Assignment_v1.Models;
 
 namespace FIT5032_Assignment_v1.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class LocationsController : Controller
     {
         private FIT5032_Models db = new FIT5032_Models();
@@ -22,6 +21,7 @@ namespace FIT5032_Assignment_v1.Controllers
         }
 
         // GET: Locations/Details/5
+        [Authorize(Roles = "Admin, Receptionist")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +37,7 @@ namespace FIT5032_Assignment_v1.Controllers
         }
 
         // GET: Locations/Create
+        [Authorize(Roles = "Admin, Receptionist")]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +48,7 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Receptionist")]
         public ActionResult Create([Bind(Include = "Id,Name,Address,PhoneNumber,EmailAddress")] Location location)
         {
             if (ModelState.IsValid)
@@ -60,6 +62,7 @@ namespace FIT5032_Assignment_v1.Controllers
         }
 
         // GET: Locations/Edit/5
+        [Authorize(Roles = "Admin, Receptionist")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +82,7 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Receptionist")]
         public ActionResult Edit([Bind(Include = "Id,Name,Address,PhoneNumber,EmailAddress")] Location location)
         {
             if (ModelState.IsValid)
@@ -91,6 +95,7 @@ namespace FIT5032_Assignment_v1.Controllers
         }
 
         // GET: Locations/Delete/5
+        [Authorize(Roles = "Admin, Receptionist")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +113,7 @@ namespace FIT5032_Assignment_v1.Controllers
         // POST: Locations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Receptionist")]
         public ActionResult DeleteConfirmed(int id)
         {
             Location location = db.Locations.Find(id);

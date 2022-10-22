@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FIT5032_Assignment_v1.Models;
+using System.Data.SqlClient;
 
 namespace FIT5032_Assignment_v1.Controllers
 {
@@ -174,7 +175,10 @@ namespace FIT5032_Assignment_v1.Controllers
                         Email = user.Email,
                         UserId = user.Id
                     };
-                    db.Patients.Add(patient);
+                    db.Database.ExecuteSqlCommand("insert into Patients(FirstName, LastName, Gender, PhoneNumber, Email, UserId) values (@FirstName, @LastName, @Gender, @PhoneNumber, @Email, @UserId)",
+                    new SqlParameter("@FirstName", patient.FirstName), new SqlParameter("@LastName", patient.LastName), new SqlParameter("@Gender", patient.Gender),
+                    new SqlParameter("@PhoneNumber", patient.PhoneNumber), new SqlParameter("@Email", patient.Email), new SqlParameter("@UserId", patient.UserId));
+                    //db.Patients.Add(patient);
                     db.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -413,7 +417,10 @@ namespace FIT5032_Assignment_v1.Controllers
                             Email = user.Email,
                             UserId = user.Id
                         };
-                        db.Patients.Add(patient);
+                        db.Database.ExecuteSqlCommand("insert into Patients(FirstName, LastName, Gender, PhoneNumber, Email, UserId) values (@FirstName, @LastName, @Gender, @PhoneNumber, @Email, @UserId)",
+                    new SqlParameter("@FirstName", patient.FirstName), new SqlParameter("@LastName", patient.LastName), new SqlParameter("@Gender", patient.Gender),
+                    new SqlParameter("@PhoneNumber", patient.PhoneNumber), new SqlParameter("@Email", patient.Email), new SqlParameter("@UserId", patient.UserId));
+                        //db.Patients.Add(patient);
                         db.SaveChanges();
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);

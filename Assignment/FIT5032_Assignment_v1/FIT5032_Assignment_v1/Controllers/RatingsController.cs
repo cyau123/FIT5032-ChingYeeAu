@@ -21,7 +21,7 @@ namespace FIT5032_Assignment_v1.Controllers
         public ActionResult Index()
         {
             var ratings = db.Ratings.Include(r => r.Dentist).Include(r => r.Patient);
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Admin") || User.IsInRole("Receptionist"))
             {
                 ratings = db.Ratings.Include(r => r.Dentist).Include(r => r.Patient);
             }
@@ -50,6 +50,7 @@ namespace FIT5032_Assignment_v1.Controllers
         }
 
         // GET: Ratings/Create
+        [Authorize(Roles = "Patient")]
         public ActionResult Create()
         {
             ViewBag.DentistId = new SelectList(db.Dentists, "Id", "DisplayName");
@@ -62,6 +63,7 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Patient")]
         public ActionResult Create([Bind(Include = "Id,DentistId,PatientId,Score")] Rating rating)
         {
             if (ModelState.IsValid)
@@ -87,6 +89,7 @@ namespace FIT5032_Assignment_v1.Controllers
         }
 
         // GET: Ratings/Edit/5
+        [Authorize(Roles = "Patient")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -108,6 +111,7 @@ namespace FIT5032_Assignment_v1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Patient")]
         public ActionResult Edit([Bind(Include = "Id,DentistId,PatientId,Score")] Rating rating)
         {
             if (ModelState.IsValid)
@@ -133,6 +137,7 @@ namespace FIT5032_Assignment_v1.Controllers
         }
 
         // GET: Ratings/Delete/5
+        [Authorize(Roles = "Patient")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -150,12 +155,17 @@ namespace FIT5032_Assignment_v1.Controllers
         // POST: Ratings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Patient")]
         public ActionResult DeleteConfirmed(int id)
         {
             Rating rating = db.Ratings.Find(id);
             db.Ratings.Remove(rating);
             db.SaveChanges();
-            double averageRating = db.Database.SqlQuery<double>("Select AVG(Score) from Ratings where DentistId = @DentistId", new SqlParameter("@DentistId", rating.DentistId)).FirstOrDefault();
+            double? averageRating = db.Database.SqlQuery<double?>("Select AVG(Score) from Ratings where DentistId = @DentistId", new SqlParameter("@DentistId", rating.DentistId)).FirstOrDefault();
+            if (averageRating == null)
+            {
+                averageRating = 0;
+            }
             db.Database.ExecuteSqlCommand("update Dentists set AggregatedRating=@AggregatedRating where Id=@Id",
                 new SqlParameter("@Id", rating.DentistId), new SqlParameter("@AggregatedRating", averageRating));
             db.SaveChanges();

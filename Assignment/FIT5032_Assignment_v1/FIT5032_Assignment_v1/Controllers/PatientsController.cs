@@ -12,7 +12,7 @@ using FIT5032_Assignment_v1.Models;
 
 namespace FIT5032_Assignment_v1.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Receptionist")]
     public class PatientsController : Controller
     {
         private FIT5032_Models db = new FIT5032_Models();
