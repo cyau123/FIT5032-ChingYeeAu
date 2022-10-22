@@ -32,7 +32,8 @@
                     {
                         <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
                         <li>@Html.ActionLink("Dentists", "Index", "Dentists")</li>
-                        <li>@Html.ActionLink("Send Email", "Send_Email", "SendMailer")</li>
+                        <li>@Html.ActionLink("Email", "Send_Email", "SendMailer")</li>
+                        <li>@Html.ActionLink("Bulk Email", "Send_Bulk_Email", "SendMailer")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -13,7 +13,7 @@ namespace FIT5032_Assignment_v1.Controllers
 {
     public class SendMailerController : Controller
     {
-        //  
+        private FIT5032_Models db = new FIT5032_Models();
         // GET: /SendMailer/  
         public ActionResult Send_Email()
         {
@@ -40,6 +40,46 @@ namespace FIT5032_Assignment_v1.Controllers
                     ModelState.Clear();
 
                     return View(new SendEmailViewModel());
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+
+            return View();
+        }
+
+        public ActionResult Send_Bulk_Email()
+        {
+            return View(new SendBulkEmailViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult Send_Bulk_Email(SendBulkEmailViewModel model, HttpPostedFileBase path)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var patientList = db.Patients.SqlQuery("Select * from Patients").ToList<Patient>();
+                    List<String> toEmail = new List<String>();
+                    foreach (var patient in patientList)
+                    {
+                        toEmail.Add(patient.Email);
+                    }
+                    String subject = model.Subject;
+                    String contents = model.Contents;
+                    HttpPostedFileBase newFilePath = model.Path;
+
+                    BulkEmailSender es = new BulkEmailSender();
+                    es.Send(toEmail, subject, contents, path);
+
+                    ViewBag.Result = "Email has been send.";
+
+                    ModelState.Clear();
+
+                    return View(new SendBulkEmailViewModel());
                 }
                 catch
                 {
